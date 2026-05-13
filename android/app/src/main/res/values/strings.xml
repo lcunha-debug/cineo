@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cineo</string>
+    <string name="title_activity_main">Cineo</string>
+    <string name="package_name">com.cineo.editor</string>
+    <string name="custom_url_scheme">com.cineo.editor</string>
+</resources>

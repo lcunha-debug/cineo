@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-mobile/
+dist-pkg/
+out/
+.DS_Store
+*.local
+docs/index-deploy.html

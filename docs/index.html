@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cineo — Editor de Vídeo com IA</title>
+  <meta name="description" content="Editor de vídeo gratuito para Windows com IA. Corte automático por voz, legendas automáticas, efeitos e muito mais." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --purple-dark: #4f46e5;
+      --bg: #06040f;
+      --surface: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --text: #d0d0f0;
+      --muted: #6060a0;
+      --green: #34d399;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Background ── */
+    .bg-orbs {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.12;
+      animation: drift 20s infinite ease-in-out alternate;
+    }
+    .orb-1 { width: 700px; height: 700px; background: #7c3aed; top: -200px; left: -150px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: #4f46e5; bottom: -100px; right: -100px; animation-delay: -7s; }
+    .orb-3 { width: 300px; height: 300px; background: #0ea5e9; top: 40%; left: 50%; animation-delay: -14s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,30px) scale(1.05); } }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 60px;
+      background: rgba(6,4,15,0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-text { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 7px 18px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border: none; border-radius: 8px; color: #fff;
+      font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── Sections ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 20px;
+      font-size: 11px; font-weight: 600; color: var(--purple-light);
+      letter-spacing: 0.8px; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 900; line-height: 1.05; letter-spacing: -2px;
+      color: #fff; margin-bottom: 20px;
+      max-width: 900px;
+    }
+    h1 .grad {
+      background: linear-gradient(135deg, #c4b5fd 0%, #818cf8 50%, #60a5fa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2.5vw, 19px);
+      color: var(--muted); max-width: 540px; line-height: 1.65;
+      margin-bottom: 44px;
+    }
+
+    .hero-buttons { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 34px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border: none; border-radius: 12px; color: #fff;
+      font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 40px rgba(124,58,237,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 50px rgba(124,58,237,0.5); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border); border-radius: 12px; color: var(--text);
+      font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+    .hero-meta { margin-top: 14px; font-size: 11px; color: #44446a; letter-spacing: 0.3px; }
+
+    /* ── App mockup ── */
+    .mockup-wrap {
+      position: relative; margin-top: 70px; width: 100%; max-width: 900px;
+    }
+    .mockup-glow {
+      position: absolute; inset: -40px;
+      background: radial-gradient(ellipse at 50% 60%, rgba(124,58,237,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .mockup {
+      width: 100%; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+      background: #0a0818;
+    }
+    .mockup-bar {
+      height: 36px; background: #0a0814;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; padding: 0 14px; gap: 6px;
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .mockup-title {
+      flex: 1; text-align: center; font-size: 11px; color: #44446a; font-weight: 500;
+    }
+    .mockup-body {
+      display: grid; grid-template-columns: 52px 180px 1fr 200px;
+      height: 360px;
+    }
+    .mock-strip { background: #070712; border-right: 1px solid rgba(255,255,255,0.04); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; }
+    .mock-icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(124,58,237,0.15); display: flex; align-items: center; justify-content: center; }
+    .mock-panel { background: #08071a; border-right: 1px solid rgba(255,255,255,0.04); padding: 10px; }
+    .mock-panel-title { font-size: 9px; font-weight: 700; color: #44446a; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .mock-media-item { height: 44px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); margin-bottom: 5px; display: flex; align-items: center; padding: 0 8px; gap: 8px; }
+    .mock-thumb { width: 32px; height: 28px; border-radius: 4px; flex-shrink: 0; }
+    .mock-label { font-size: 9px; color: #6666aa; }
+    .mock-center { display: flex; flex-direction: column; }
+    .mock-preview { flex: 1; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .mock-video-bg { width: 100%; height: 100%; background: linear-gradient(135deg, #0f0a2a 0%, #1a0a3a 50%, #0a1a3a 100%); display: flex; align-items: center; justify-content: center; }
+    .mock-play { width: 40px; height: 40px; border-radius: 50%; background: rgba(124,58,237,0.8); display: flex; align-items: center; justify-content: center; }
+    .mock-text-overlay { position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); padding: 4px 12px; border-radius: 4px; font-size: 11px; color: #fff; font-weight: 600; white-space: nowrap; border: 1px dashed rgba(124,58,237,0.5); }
+    .mock-controls { height: 36px; background: #070712; border-top: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; padding: 0 12px; gap: 8px; }
+    .mock-play-btn { width: 22px; height: 22px; border-radius: 50%; background: rgba(124,58,237,0.2); display: flex; align-items: center; justify-content: center; }
+    .mock-scrubber { flex: 1; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; position: relative; }
+    .mock-scrubber-fill { width: 35%; height: 100%; background: linear-gradient(90deg, #7c3aed, #4f46e5); border-radius: 2px; }
+    .mock-right { background: #08071a; padding: 10px; }
+    .mock-tabs { display: flex; gap: 2px; margin-bottom: 10px; }
+    .mock-tab { flex: 1; padding: 4px 0; font-size: 8px; text-align: center; border-radius: 4px; color: #44446a; }
+    .mock-tab.active { background: rgba(124,58,237,0.15); color: #a78bfa; }
+    .mock-slider-row { margin-bottom: 7px; }
+    .mock-slider-label { display: flex; justify-content: space-between; font-size: 8px; color: #44446a; margin-bottom: 3px; }
+    .mock-slider { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.06); }
+    .mock-slider-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #7c3aed, #4f46e5); }
+    .mock-timeline { height: 80px; background: #060610; border-top: 1px solid rgba(255,255,255,0.04); padding: 8px 10px; grid-column: 1 / -1; }
+    .mock-track { height: 24px; background: rgba(255,255,255,0.02); border-radius: 4px; margin-bottom: 4px; display: flex; align-items: center; padding: 0 6px; gap: 4px; overflow: hidden; }
+    .mock-clip { height: 16px; border-radius: 3px; }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex; align-items: center; justify-content: center; gap: 48px;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* ── Features ── */
+    .features { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; color: var(--purple-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; text-align: center; }
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 900; color: #fff; text-align: center; letter-spacing: -1px; margin-bottom: 12px; }
+    .section-sub { font-size: 15px; color: var(--muted); text-align: center; max-width: 480px; margin: 0 auto 60px; line-height: 1.6; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      transition: all 0.25s;
+    }
+    .feature-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(124,58,237,0.3);
+      transform: translateY(-2px);
+    }
+    .feature-icon-wrap {
+      width: 44px; height: 44px; border-radius: 11px;
+      background: rgba(124,58,237,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .feature-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .feature-badge {
+      display: inline-block; margin-top: 10px;
+      padding: 2px 8px; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 4px; font-size: 10px; font-weight: 700; color: var(--green);
+    }
+
+    /* ── How to install ── */
+    .install { padding: 80px 24px; max-width: 700px; margin: 0 auto; }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+    .step { display: flex; gap: 20px; padding-bottom: 32px; position: relative; }
+    .step:not(:last-child)::before {
+      content: ''; position: absolute; left: 19px; top: 40px; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: var(--purple-light);
+    }
+    .step-body { padding-top: 8px; }
+    .step-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .step-desc code { background: rgba(124,58,237,0.15); border-radius: 4px; padding: 1px 6px; font-size: 12px; color: var(--purple-light); font-family: monospace; }
+
+    /* ── Download CTA ── */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 70%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 { font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: #fff; letter-spacing: -1.5px; margin-bottom: 16px; }
+    .cta-section p { font-size: 16px; color: var(--muted); margin-bottom: 40px; max-width: 440px; margin-left: auto; margin-right: auto; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    footer .logo span { font-size: 14px; font-weight: 800; color: #fff; }
+    footer p { font-size: 12px; color: #33334d; }
+
+    /* ── Version badge ── */
+    #version-badge {
+      display: none; margin-top: 10px;
+      font-size: 11px; color: #44446a;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .mockup-body { grid-template-columns: 52px 1fr; }
+      .mock-panel, .mock-right { display: none; }
+      .stats { gap: 28px; flex-wrap: wrap; }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+        <path d="M6 8L6 24M6 16L26 8L26 24L6 16Z" stroke="white" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">cineo</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Funcionalidades</a>
+    <a href="#install">Como instalar</a>
+    <a href="#download">Download</a>
+  </div>
+  <a href="#download" class="nav-cta" id="nav-download">Baixar grátis</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-badge">
+    <span></span>
+    Versão <span id="hero-version">mais recente</span> disponível
+  </div>
+
+  <h1>
+    Edite vídeos com<br>
+    <span class="grad">inteligência artificial</span>
+  </h1>
+
+  <p class="hero-sub">
+    Editor de vídeo profissional e gratuito para Windows.
+    Corte automático por voz, legendas com IA, efeitos cinematográficos — tudo em um só lugar.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#" class="btn-primary" id="main-download-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Baixar para Windows — Grátis
+    </a>
+    <a href="#" class="btn-secondary" id="android-download-btn" style="background:rgba(61,220,132,0.1);border-color:rgba(61,220,132,0.25);color:#3ddc84">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 18L3.27 20.73a1 1 0 0 0 1.41 1.41L7.5 19.5M18 18l2.73 2.73a1 1 0 0 1-1.41 1.41L16.5 19.5"/><path d="M3 6h18M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M4 14h16"/>
+      </svg>
+      Download Android APK
+    </a>
+  </div>
+
+  <p class="hero-meta">Windows 10/11 · Android 8+ · Gratuito para sempre</p>
+  <p id="version-badge">versão <strong id="version-num">—</strong> · <span id="file-size">—</span></p>
+
+  <!-- App mockup -->
+  <div class="mockup-wrap">
+    <div class="mockup-glow"></div>
+    <div class="mockup">
+      <!-- Title bar -->
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <span class="mockup-title">cineo — Projeto sem título</span>
+      </div>
+      <!-- Editor body -->
+      <div class="mockup-body">
+        <!-- Icon strip -->
+        <div class="mock-strip">
+          <div class="mock-icon">
+            <svg width="14" height="14" fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2" stroke-width="1.5"/><path d="M16 10l5-3v10l-5-3v-4z" stroke-width="1.5"/></svg>
+          </div>
+          <div class="mock-icon">
+            <svg width="14" height="14" fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="mock-icon">
+            <svg width="14" height="14" fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.5"/><path d="M8 13s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <!-- Media panel -->
+        <div class="mock-panel">
+          <div class="mock-panel-title">Biblioteca</div>
+          <div class="mock-media-item">
+            <div class="mock-thumb" style="background:linear-gradient(135deg,#1a3a6a,#0a2a4a)"></div>
+            <div><div class="mock-label" style="color:#9090cc;font-size:9px">vlog_final.mp4</div><div class="mock-label">00:03:24</div></div>
+          </div>
+          <div class="mock-media-item">
+            <div class="mock-thumb" style="background:linear-gradient(135deg,#1a2a1a,#0a3a1a)"></div>
+            <div><div class="mock-label" style="color:#9090cc;font-size:9px">intro.mp4</div><div class="mock-label">00:00:15</div></div>
+          </div>
+          <div class="mock-media-item" style="border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06)">
+            <div class="mock-thumb" style="background:linear-gradient(135deg,#2a1a4a,#1a0a3a)"></div>
+            <div><div class="mock-label" style="color:#a78bfa;font-size:9px">musica.mp3</div><div class="mock-label">00:02:47</div></div>
+          </div>
+        </div>
+        <!-- Center preview -->
+        <div class="mock-center">
+          <div class="mock-preview">
+            <div class="mock-video-bg">
+              <div class="mock-play">
+                <svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="mock-text-overlay">Bem-vindo ao meu canal! 🎬</div>
+          </div>
+          <div class="mock-controls">
+            <div class="mock-play-btn">
+              <svg width="8" height="8" fill="#7c3aed" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="mock-scrubber"><div class="mock-scrubber-fill"></div></div>
+            <span style="font-size:8px;color:#44446a;font-family:monospace">01:12</span>
+          </div>
+        </div>
+        <!-- Right panel -->
+        <div class="mock-right">
+          <div class="mock-tabs">
+            <div class="mock-tab active">Clipe</div>
+            <div class="mock-tab">Cores</div>
+            <div class="mock-tab">Auto</div>
+          </div>
+          <div class="mock-slider-row">
+            <div class="mock-slider-label"><span>Volume</span><span style="color:#a78bfa">1.2x</span></div>
+            <div class="mock-slider"><div class="mock-slider-fill" style="width:60%"></div></div>
+          </div>
+          <div class="mock-slider-row">
+            <div class="mock-slider-label"><span>Velocidade</span><span style="color:#a78bfa">1x</span></div>
+            <div class="mock-slider"><div class="mock-slider-fill" style="width:50%"></div></div>
+          </div>
+          <div class="mock-slider-row">
+            <div class="mock-slider-label"><span>Fade In</span><span style="color:#a78bfa">0.3s</span></div>
+            <div class="mock-slider"><div class="mock-slider-fill" style="width:25%"></div></div>
+          </div>
+          <div style="margin-top:10px;padding:8px;background:rgba(124,58,237,0.1);border-radius:6px;border:1px solid rgba(124,58,237,0.2)">
+            <div style="font-size:8px;color:#a78bfa;font-weight:700;margin-bottom:4px">Aprimorar Voz</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div style="width:28px;height:14px;background:#7c3aed;border-radius:7px;position:relative">
+                <div style="width:10px;height:10px;background:#fff;border-radius:50%;position:absolute;top:2px;right:2px"></div>
+              </div>
+              <span style="font-size:7px;color:#6ee7b7">Ativo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Timeline -->
+      <div class="mock-timeline">
+        <div class="mock-track">
+          <span style="font-size:7px;color:#44446a;width:40px;flex-shrink:0">Vídeo 1</span>
+          <div class="mock-clip" style="width:38%;background:rgba(59,130,246,0.5);border:1px solid rgba(59,130,246,0.4)"></div>
+          <div class="mock-clip" style="width:22%;background:rgba(59,130,246,0.4);border:1px solid rgba(59,130,246,0.3);margin-left:6px"></div>
+        </div>
+        <div class="mock-track">
+          <span style="font-size:7px;color:#44446a;width:40px;flex-shrink:0">Áudio 1</span>
+          <div class="mock-clip" style="width:62%;background:rgba(16,185,129,0.4);border:1px solid rgba(16,185,129,0.3)"></div>
+        </div>
+        <div class="mock-track">
+          <span style="font-size:7px;color:#44446a;width:40px;flex-shrink:0">Texto</span>
+          <div class="mock-clip" style="width:18%;background:rgba(236,72,153,0.4);border:1px solid rgba(236,72,153,0.3);margin-left:8%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Formatos de exportação</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4K</div>
+    <div class="stat-label">Resolução máxima</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Offline &amp; gratuito</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">IA</div>
+    <div class="stat-label">Corte &amp; transcrição</div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-label">Funcionalidades</div>
+  <h2 class="section-title">Tudo que você precisa para editar</h2>
+  <p class="section-sub">Do corte básico à exportação profissional, o Cineo tem tudo integrado.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon-wrap">✂️</div>
+      <div class="feature-title">Auto-Corte por Voz</div>
+      <div class="feature-desc">Detecta automaticamente os silêncios e corta o vídeo, mantendo apenas os momentos com fala. Economiza horas de edição.</div>
+      <span class="feature-badge">IA Local</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">🎤</div>
+      <div class="feature-title">Transcrição Automática</div>
+      <div class="feature-desc">A IA entende o que você fala e cria legendas sincronizadas automaticamente na timeline. Funciona 100% offline.</div>
+      <span class="feature-badge">Whisper AI</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">🎨</div>
+      <div class="feature-title">Correção de Cor</div>
+      <div class="feature-desc">Presets cinematográficos prontos (Vlog, Cinematográfico, B&amp;W, Neon) e controles manuais completos de brilho, contraste e saturação.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">🔊</div>
+      <div class="feature-title">Aprimoramento de Áudio</div>
+      <div class="feature-desc">Realça frequências da voz humana e elimina ruído de fundo com tecnologia de filtros profissionais integrada ao FFmpeg.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">💾</div>
+      <div class="feature-title">Salvamento Automático</div>
+      <div class="feature-desc">Seu projeto é salvo automaticamente a cada 2 segundos. Se o app fechar, tudo é restaurado ao abrir de novo.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">📤</div>
+      <div class="feature-title">Exportação Completa</div>
+      <div class="feature-desc">MP4, MOV, MKV, WebM, AVI, GIF, MP3 e WAV. Resolução de 480p até 4K. Qualidade ajustável com CRF profissional.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">✍️</div>
+      <div class="feature-title">Títulos e Texto</div>
+      <div class="feature-desc">Adicione textos com animações (Fade In, Zoom, Bounce, Glow...), fontes personalizadas e até títulos criados com IA.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">⚡</div>
+      <div class="feature-title">Timeline Profissional</div>
+      <div class="feature-desc">Múltiplas faixas, snap magnético, undo/redo ilimitado, divisão de clipes, controle de velocidade e muito mais.</div>
+    </div>
+  </div>
+</section>
+
+<!-- How to install -->
+<section class="install" id="install">
+  <div class="section-label">Instalação</div>
+  <h2 class="section-title">Como instalar</h2>
+  <p class="section-sub">Em menos de 2 minutos você já está editando.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Baixe o instalador</div>
+        <div class="step-desc">Clique no botão "Baixar para Windows" acima. Um arquivo <code>.exe</code> será baixado para o seu computador.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Execute o arquivo</div>
+        <div class="step-desc">Dê dois cliques no arquivo baixado. Se aparecer um aviso do Windows Defender, clique em <code>Mais informações → Executar assim mesmo</code>.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Crie sua conta grátis</div>
+        <div class="step-desc">Crie uma conta local gratuita direto no app. Sem e-mail obrigatório, sem mensalidade.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Comece a editar!</div>
+        <div class="step-desc">Crie um projeto, importe seus vídeos e use a IA para cortar, transcrever e melhorar o áudio automaticamente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Download -->
+<section class="cta-section" id="download">
+  <div class="section-label">Download</div>
+  <h2>Pronto para começar?</h2>
+  <p>Grátis para sempre. Sem anúncios. Sem assinatura.</p>
+  <a href="#" class="btn-primary" id="cta-download-btn" style="font-size:16px;padding:18px 40px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Baixar Cineo para Windows
+  </a>
+  <p style="margin-top:14px;font-size:12px;color:#44446a">Windows 10 / 11 · 64-bit · Instalação rápida</p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <a href="#" class="logo">
+    <div class="nav-logo-icon" style="width:26px;height:26px;border-radius:7px">
+      <svg width="13" height="13" viewBox="0 0 32 32" fill="none">
+        <path d="M6 8L6 24M6 16L26 8L26 24L6 16Z" stroke="white" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span>cineo</span>
+  </a>
+  <p>Editor de vídeo gratuito para Windows &copy; 2026</p>
+</footer>
+
+<script>
+  // ── Fetch latest release from GitHub ────────────────────────────────────────
+  const GITHUB_REPO = 'lcunha-debug/cineo';
+
+  function setDownloadUrl(url, version, size) {
+    const btns = [
+      document.getElementById('main-download-btn'),
+      document.getElementById('cta-download-btn'),
+      document.getElementById('nav-download')
+    ];
+    btns.forEach(btn => { if (btn) { btn.href = url; } });
+
+    const badge = document.getElementById('version-badge');
+    const vNum = document.getElementById('version-num');
+    const vHero = document.getElementById('hero-version');
+    const sz = document.getElementById('file-size');
+    if (badge) badge.style.display = 'block';
+    if (vNum) vNum.textContent = version;
+    if (vHero) vHero.textContent = version;
+    if (sz && size) sz.textContent = (size / 1024 / 1024).toFixed(0) + ' MB';
+  }
+
+  // Windows direct download link (gofile.io)
+  setDownloadUrl('https://gofile.io/d/WBG7w0', 'v0.1.0', null);
+
+  // Android APK — updated automatically from GitHub Releases
+  fetch('https://api.github.com/repos/' + GITHUB_REPO + '/releases/latest')
+    .then(r => r.json())
+    .then(data => {
+      const apk = data.assets?.find(a => a.name.endsWith('.apk'));
+      const btn = document.getElementById('android-download-btn');
+      if (apk && btn) btn.href = apk.browser_download_url;
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>

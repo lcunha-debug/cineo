@@ -1,0 +1,120 @@
+/* ─── Mobile overrides (loaded only in mobile build) ─── */
+
+/* Prevent rubber-band scroll on iOS */
+html, body { height: 100%; overflow: hidden; touch-action: none; }
+
+/* Safe area for notch/home-bar devices */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+/* ── Root layout ─────────────────────────────────────── */
+.editor-root {
+  flex-direction: column !important;
+  height: calc(100dvh - var(--sat) - var(--sab)) !important;
+  padding-top: var(--sat);
+  padding-bottom: var(--sab);
+}
+
+/* Toolbar: shorter, no window controls */
+.toolbar {
+  height: 46px !important;
+  padding: 0 12px !important;
+}
+
+.mobile-hide { display: none !important; }
+
+/* ── Body: column stack ──────────────────────────────── */
+.editor-body {
+  flex-direction: column !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* ── Preview takes top portion ───────────────────────── */
+.preview-area {
+  flex: 0 0 auto !important;
+  height: 42vw !important;
+  max-height: 260px !important;
+  width: 100% !important;
+}
+
+/* ── Bottom: sidebar + right collapse into tab bar ───── */
+.editor-sidebar {
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  border-right: none !important;
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+}
+
+.editor-icon-strip {
+  flex-direction: row !important;
+  width: 100% !important;
+  height: 48px !important;
+  border-right: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  justify-content: space-around !important;
+  padding: 0 8px !important;
+}
+
+.icon-strip-btn {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  flex-shrink: 0 !important;
+}
+
+.editor-panel {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Right panel hidden on mobile (merged into sidebar) */
+.editor-right {
+  display: none !important;
+}
+
+/* ── Timeline bar: 180px high ────────────────────────── */
+.editor-root > div:last-child {
+  height: 180px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── Touch targets ───────────────────────────────────── */
+button, .media-item, .clip-block {
+  min-height: 40px;
+}
+
+input[type="range"] {
+  height: 28px !important;
+}
+
+/* ── Timeline touch scrolling ────────────────────────── */
+.timeline-scroll {
+  -webkit-overflow-scrolling: touch !important;
+  overflow-x: auto !important;
+}
+
+/* ── Modal width ─────────────────────────────────────── */
+.modal-box {
+  width: calc(100vw - 32px) !important;
+  max-width: 420px !important;
+  max-height: 85dvh !important;
+  overflow-y: auto !important;
+}
+
+/* ── Font size bumps for readability ─────────────────── */
+.panel-title { font-size: 13px !important; }
+.toolbar-logo { font-size: 15px !important; }
