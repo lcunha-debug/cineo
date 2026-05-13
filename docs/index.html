@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cineo — Editor de Vídeo com IA</title>
-  <meta name="description" content="Editor de vídeo gratuito para Windows com IA. Corte automático por voz, legendas automáticas, efeitos e muito mais." />
+  <meta name="description" content="Editor de vídeo gratuito para Windows e Android com IA. Corte automático por voz, legendas automáticas, efeitos e muito mais." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -266,7 +266,33 @@
       border-top: 1px solid var(--border);
     }
     .cta-section h2 { font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: #fff; letter-spacing: -1.5px; margin-bottom: 16px; }
-    .cta-section p { font-size: 16px; color: var(--muted); margin-bottom: 40px; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .cta-section > p { font-size: 16px; color: var(--muted); margin-bottom: 40px; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .platform-cards { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
+    .platform-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      width: 260px;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .platform-card:hover { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); }
+    .platform-card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .platform-card-icon.win { background: linear-gradient(135deg, #0078d4, #005a9e); }
+    .platform-card-icon.and { background: linear-gradient(135deg, #3ddc84, #23a05c); }
+    .platform-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .platform-card p { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+    .platform-card .dl-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border-radius: 10px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .platform-card .dl-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .platform-card .dl-btn.win-dl { background: linear-gradient(135deg, #0078d4, #005a9e); color: #fff; }
+    .platform-card .dl-btn.and-dl { background: linear-gradient(135deg, #3ddc84, #23a05c); color: #0a1f12; }
+    .platform-card .req { font-size: 10px; color: #33334d; margin-top: 10px; }
 
     /* ── Footer ── */
     footer {
@@ -285,14 +311,113 @@
       font-size: 11px; color: #44446a;
     }
 
+    /* ── Mobile phone mockup ── */
+    .mockup-phone { display: none; }
+    .phone-frame {
+      width: 220px; height: 420px; border-radius: 28px;
+      border: 2px solid rgba(255,255,255,0.12);
+      background: #080810;
+      overflow: hidden; position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .phone-notch {
+      width: 70px; height: 18px; background: #080810;
+      border-radius: 0 0 12px 12px;
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      z-index: 2; border: 1px solid rgba(255,255,255,0.08); border-top: none;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      padding-top: 22px;
+    }
+    .phone-toolbar {
+      height: 38px; background: #0a0814; border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; padding: 0 10px; gap: 6px;
+    }
+    .phone-logo { font-size: 11px; font-weight: 800; color: #a78bfa; flex: 1; }
+    .phone-preview {
+      flex: 0 0 110px; background: #000;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .phone-video-bg { width: 100%; height: 100%; background: linear-gradient(135deg,#0f0a2a,#1a0a3a); display: flex; align-items: center; justify-content: center; }
+    .phone-play { width: 32px; height: 32px; border-radius: 50%; background: rgba(124,58,237,0.85); display: flex; align-items: center; justify-content: center; }
+    .phone-overlay { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.75); padding: 3px 10px; border-radius: 4px; font-size: 9px; color: #fff; white-space: nowrap; }
+    .phone-tabs {
+      height: 36px; background: #07060f; border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: space-around; padding: 0 8px;
+    }
+    .phone-tab { font-size: 9px; color: #44446a; padding: 4px 8px; border-radius: 6px; }
+    .phone-tab.active { background: rgba(124,58,237,0.2); color: #a78bfa; }
+    .phone-panel { flex: 1; background: #08071a; padding: 8px; overflow: hidden; }
+    .phone-media-item { height: 38px; border-radius: 5px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); margin-bottom: 4px; display: flex; align-items: center; padding: 0 7px; gap: 7px; }
+    .phone-thumb { width: 26px; height: 22px; border-radius: 3px; flex-shrink: 0; }
+    .phone-mlabel { font-size: 8px; color: #6666aa; }
+    .phone-timeline {
+      height: 70px; background: #060610; border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 6px 8px;
+    }
+    .phone-track { height: 18px; background: rgba(255,255,255,0.02); border-radius: 3px; margin-bottom: 4px; display: flex; align-items: center; padding: 0 5px; gap: 3px; overflow: hidden; }
+    .phone-clip { height: 12px; border-radius: 2px; }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      nav { padding: 0 20px; }
+      /* Nav */
+      nav { padding: 0 16px; }
       .nav-links { display: none; }
-      .mockup-body { grid-template-columns: 52px 1fr; }
-      .mock-panel, .mock-right { display: none; }
-      .stats { gap: 28px; flex-wrap: wrap; }
-      footer { justify-content: center; text-align: center; }
+      .nav-cta { font-size: 12px; padding: 6px 14px; }
+
+      /* Hero */
+      .hero { padding: 88px 20px 50px; }
+      h1 { letter-spacing: -1px; }
+      .hero-sub { font-size: 15px; margin-bottom: 32px; }
+      .hero-buttons { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; max-width: 320px; }
+      .btn-primary, .btn-secondary { justify-content: center; padding: 14px 20px; font-size: 14px; }
+
+      /* Hide desktop mockup, show phone */
+      .mockup-wrap { display: none; }
+      .mockup-phone {
+        display: flex; justify-content: center; margin-top: 48px; position: relative;
+      }
+      .mockup-phone .mockup-glow {
+        position: absolute; inset: -60px;
+        background: radial-gradient(ellipse at 50% 60%, rgba(124,58,237,0.22) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* Stats */
+      .stats { gap: 20px; padding: 32px 16px; justify-content: space-around; }
+      .stat-num { font-size: 22px; }
+
+      /* Features */
+      .features { padding: 64px 16px; }
+      .features-grid { grid-template-columns: 1fr; gap: 12px; }
+      .feature-card { padding: 22px; }
+
+      /* Install */
+      .install { padding: 60px 16px; }
+
+      /* Platform cards */
+      .platform-cards { flex-direction: column; align-items: center; }
+      .platform-card { width: 100%; max-width: 340px; }
+
+      /* CTA */
+      .cta-section { padding: 64px 16px; }
+
+      /* Footer */
+      footer { justify-content: center; text-align: center; padding: 24px 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-badge { font-size: 10px; }
+      h1 { font-size: 36px; letter-spacing: -0.5px; }
+      .hero-sub { font-size: 14px; }
+      .stat-num { font-size: 20px; }
+      .stat-label { font-size: 10px; }
+      .stats { gap: 14px; }
+      .section-title { font-size: 26px; }
+      .feature-card { padding: 18px; }
+      .cta-section h2 { font-size: 26px; }
+      .platform-card { padding: 22px 18px; }
     }
   </style>
 </head>
@@ -335,7 +460,7 @@
   </h1>
 
   <p class="hero-sub">
-    Editor de vídeo profissional e gratuito para Windows.
+    Editor de vídeo profissional e gratuito para <strong style="color:#fff">Windows e Android</strong>.
     Corte automático por voz, legendas com IA, efeitos cinematográficos — tudo em um só lugar.
   </p>
 
@@ -346,20 +471,75 @@
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
-      Baixar para Windows — Grátis
+      Windows — Baixar Grátis
     </a>
     <a href="#" class="btn-secondary" id="android-download-btn" style="background:rgba(61,220,132,0.1);border-color:rgba(61,220,132,0.25);color:#3ddc84">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 18L3.27 20.73a1 1 0 0 0 1.41 1.41L7.5 19.5M18 18l2.73 2.73a1 1 0 0 1-1.41 1.41L16.5 19.5"/><path d="M3 6h18M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M4 14h16"/>
       </svg>
-      Download Android APK
+      Android — Baixar APK
     </a>
   </div>
 
   <p class="hero-meta">Windows 10/11 · Android 8+ · Gratuito para sempre</p>
   <p id="version-badge">versão <strong id="version-num">—</strong> · <span id="file-size">—</span></p>
 
-  <!-- App mockup -->
+  <!-- Phone mockup (mobile only) -->
+  <div class="mockup-phone">
+    <div class="mockup-glow"></div>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="phone-toolbar">
+          <span class="phone-logo">cineo</span>
+          <svg width="12" height="12" fill="none" stroke="#44446a" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <svg width="12" height="12" fill="none" stroke="#44446a" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="phone-preview">
+          <div class="phone-video-bg">
+            <div class="phone-play">
+              <svg width="12" height="12" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="phone-overlay">Bem-vindo ao canal! 🎬</div>
+        </div>
+        <div class="phone-tabs">
+          <div class="phone-tab active">Mídia</div>
+          <div class="phone-tab">Texto</div>
+          <div class="phone-tab">Efeitos</div>
+          <div class="phone-tab">Auto-Corte</div>
+        </div>
+        <div class="phone-panel">
+          <div class="phone-media-item">
+            <div class="phone-thumb" style="background:linear-gradient(135deg,#1a3a6a,#0a2a4a)"></div>
+            <div><div class="phone-mlabel" style="color:#9090cc">vlog.mp4</div><div class="phone-mlabel">03:24</div></div>
+          </div>
+          <div class="phone-media-item">
+            <div class="phone-thumb" style="background:linear-gradient(135deg,#1a2a1a,#0a3a1a)"></div>
+            <div><div class="phone-mlabel" style="color:#9090cc">intro.mp4</div><div class="phone-mlabel">00:15</div></div>
+          </div>
+          <div class="phone-media-item" style="border-color:rgba(124,58,237,0.3);background:rgba(124,58,237,0.06)">
+            <div class="phone-thumb" style="background:linear-gradient(135deg,#2a1a4a,#1a0a3a)"></div>
+            <div><div class="phone-mlabel" style="color:#a78bfa">musica.mp3</div><div class="phone-mlabel">02:47</div></div>
+          </div>
+        </div>
+        <div class="phone-timeline">
+          <div class="phone-track">
+            <div class="phone-clip" style="width:40%;background:rgba(59,130,246,0.5)"></div>
+            <div class="phone-clip" style="width:25%;background:rgba(59,130,246,0.4);margin-left:4px"></div>
+          </div>
+          <div class="phone-track">
+            <div class="phone-clip" style="width:68%;background:rgba(16,185,129,0.4)"></div>
+          </div>
+          <div class="phone-track">
+            <div class="phone-clip" style="width:20%;background:rgba(236,72,153,0.4);margin-left:10%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App mockup (desktop) -->
   <div class="mockup-wrap">
     <div class="mockup-glow"></div>
     <div class="mockup">
@@ -546,12 +726,18 @@
   <h2 class="section-title">Como instalar</h2>
   <p class="section-sub">Em menos de 2 minutos você já está editando.</p>
 
-  <div class="steps">
+  <!-- Tabs -->
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:32px">
+    <button id="tab-win" onclick="showTab('win')" style="padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(0,120,212,0.4);background:rgba(0,120,212,0.15);color:#60b8f0;transition:all 0.2s">Windows</button>
+    <button id="tab-and" onclick="showTab('and')" style="padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#6060a0;transition:all 0.2s">Android</button>
+  </div>
+
+  <div id="steps-win" class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-body">
         <div class="step-title">Baixe o instalador</div>
-        <div class="step-desc">Clique no botão "Baixar para Windows" acima. Um arquivo <code>.exe</code> será baixado para o seu computador.</div>
+        <div class="step-desc">Clique em "Windows — Baixar Grátis" acima. Um arquivo <code>.exe</code> será baixado para o seu computador.</div>
       </div>
     </div>
     <div class="step">
@@ -576,6 +762,37 @@
       </div>
     </div>
   </div>
+
+  <div id="steps-and" class="steps" style="display:none">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Baixe o APK</div>
+        <div class="step-desc">Clique em "Android — Baixar APK" acima. O arquivo <code>.apk</code> será baixado para o seu celular.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Habilite fontes desconhecidas</div>
+        <div class="step-desc">Vá em <code>Configurações → Segurança → Instalar apps desconhecidos</code> e permita para o seu navegador ou gerenciador de arquivos.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Instale o APK</div>
+        <div class="step-desc">Abra o arquivo baixado no gerenciador de arquivos e toque em <code>Instalar</code>. O app aparecerá na sua tela inicial.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Comece a editar!</div>
+        <div class="step-desc">Crie sua conta, importe vídeos da galeria e edite com a timeline touch-friendly.</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CTA Download -->
@@ -583,15 +800,34 @@
   <div class="section-label">Download</div>
   <h2>Pronto para começar?</h2>
   <p>Grátis para sempre. Sem anúncios. Sem assinatura.</p>
-  <a href="#" class="btn-primary" id="cta-download-btn" style="font-size:16px;padding:18px 40px">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-    Baixar Cineo para Windows
-  </a>
-  <p style="margin-top:14px;font-size:12px;color:#44446a">Windows 10 / 11 · 64-bit · Instalação rápida</p>
+  <div class="platform-cards">
+    <!-- Windows -->
+    <div class="platform-card">
+      <div class="platform-card-icon win">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+      </div>
+      <h3>Windows</h3>
+      <p>App completo com FFmpeg nativo, exportação rápida e sem limites.</p>
+      <a href="#" class="dl-btn win-dl" id="cta-download-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Baixar .exe grátis
+      </a>
+      <div class="req">Windows 10 / 11 · 64-bit</div>
+    </div>
+    <!-- Android -->
+    <div class="platform-card">
+      <div class="platform-card-icon and">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M6 18L3.27 20.73a1 1 0 0 0 1.41 1.41L7.5 19.5M18 18l2.73 2.73a1 1 0 0 1-1.41 1.41L16.5 19.5"/><path d="M3 6h18M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M4 14h16"/></svg>
+      </div>
+      <h3>Android</h3>
+      <p>Editor completo no celular. Importa, edita e exporta vídeos direto do Android.</p>
+      <a href="#" class="dl-btn and-dl" id="android-cta-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Baixar APK grátis
+      </a>
+      <div class="req">Android 8.0+ · ARM64</div>
+    </div>
+  </div>
 </section>
 
 <!-- Footer -->
@@ -604,43 +840,57 @@
     </div>
     <span>cineo</span>
   </a>
-  <p>Editor de vídeo gratuito para Windows &copy; 2026</p>
+  <p>Editor de vídeo gratuito para Windows &amp; Android &copy; 2026</p>
 </footer>
 
 <script>
-  // ── Fetch latest release from GitHub ────────────────────────────────────────
   const GITHUB_REPO = 'lcunha-debug/cineo';
 
-  function setDownloadUrl(url, version, size) {
-    const btns = [
-      document.getElementById('main-download-btn'),
-      document.getElementById('cta-download-btn'),
-      document.getElementById('nav-download')
-    ];
-    btns.forEach(btn => { if (btn) { btn.href = url; } });
+  // ── Windows download ────────────────────────────────────────────────────────
+  const WIN_URL = 'https://gofile.io/d/WBG7w0';
+  ['main-download-btn', 'cta-download-btn', 'nav-download'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = WIN_URL;
+  });
+  const vNum = document.getElementById('version-num');
+  const vHero = document.getElementById('hero-version');
+  const badge = document.getElementById('version-badge');
+  if (vNum) vNum.textContent = 'v0.1.0';
+  if (vHero) vHero.textContent = 'v0.1.0';
+  if (badge) badge.style.display = 'block';
 
-    const badge = document.getElementById('version-badge');
-    const vNum = document.getElementById('version-num');
-    const vHero = document.getElementById('hero-version');
-    const sz = document.getElementById('file-size');
-    if (badge) badge.style.display = 'block';
-    if (vNum) vNum.textContent = version;
-    if (vHero) vHero.textContent = version;
-    if (sz && size) sz.textContent = (size / 1024 / 1024).toFixed(0) + ' MB';
-  }
-
-  // Windows direct download link (gofile.io)
-  setDownloadUrl('https://gofile.io/d/WBG7w0', 'v0.1.0', null);
-
-  // Android APK — updated automatically from GitHub Releases
+  // ── Android APK — GitHub Releases ──────────────────────────────────────────
   fetch('https://api.github.com/repos/' + GITHUB_REPO + '/releases/latest')
     .then(r => r.json())
     .then(data => {
       const apk = data.assets?.find(a => a.name.endsWith('.apk'));
-      const btn = document.getElementById('android-download-btn');
-      if (apk && btn) btn.href = apk.browser_download_url;
+      if (!apk) return;
+      ['android-download-btn', 'android-cta-btn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.href = apk.browser_download_url;
+      });
     })
     .catch(() => {});
+
+  // ── Tab switcher (Como instalar) ────────────────────────────────────────────
+  function showTab(platform) {
+    const isWin = platform === 'win';
+    document.getElementById('steps-win').style.display = isWin ? '' : 'none';
+    document.getElementById('steps-and').style.display = isWin ? 'none' : '';
+    document.getElementById('tab-win').style.cssText = isWin
+      ? 'padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(0,120,212,0.4);background:rgba(0,120,212,0.15);color:#60b8f0;transition:all 0.2s'
+      : 'padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#6060a0;transition:all 0.2s';
+    document.getElementById('tab-and').style.cssText = isWin
+      ? 'padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#6060a0;transition:all 0.2s'
+      : 'padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid rgba(61,220,132,0.4);background:rgba(61,220,132,0.12);color:#3ddc84;transition:all 0.2s';
+  }
+
+  // Mostrar tab Android automaticamente em dispositivos móveis
+  if (/Android/i.test(navigator.userAgent)) {
+    showTab('and');
+    // Rolar os botões Android para destaque
+    document.getElementById('android-download-btn')?.scrollIntoView({ block: 'nearest' });
+  }
 </script>
 </body>
 </html>

@@ -18,6 +18,9 @@ const config: CapacitorConfig = {
       backgroundColor: '#080810',
       showSpinner: false,
     },
+    Filesystem: {
+      // Permissão de leitura/escrita já configurada no AndroidManifest
+    },
   },
 }
 

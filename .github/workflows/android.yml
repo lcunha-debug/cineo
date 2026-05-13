@@ -2,6 +2,7 @@ name: Build Android APK
 
 on:
   push:
+    branches: [main, master]
     tags:
       - 'v*'
   workflow_dispatch:
@@ -22,14 +23,18 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install --no-optional
+        run: npm ci --no-optional
         env:
           NODE_TLS_REJECT_UNAUTHORIZED: '0'
 
+      - name: Copy FFmpeg WASM to public
+        run: |
+          mkdir -p src/renderer/public/ffmpeg
+          cp node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.js src/renderer/public/ffmpeg/
+          cp node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.wasm src/renderer/public/ffmpeg/
+
       - name: Build mobile web assets
-        run: npx vite build --config vite.config.mobile.ts
-        env:
-          NODE_TLS_REJECT_UNAUTHORIZED: '0'
+        run: npm run build:mobile
 
       - uses: actions/setup-java@v4
         with:
@@ -39,30 +44,42 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Sync web assets to Android
-        run: node node_modules/@capacitor/cli/bin/capacitor sync android
+      - name: Sync Capacitor to Android
+        run: npx cap sync android
 
-      - name: Build debug APK
+      - name: Build APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Rename APK
+      - name: Preparar APK
         run: |
           mkdir -p artifacts
           cp android/app/build/outputs/apk/debug/app-debug.apk artifacts/Cineo-Android.apk
 
-      - name: Upload APK artifact
+      - name: Salvar APK como artefato
         uses: actions/upload-artifact@v4
         with:
           name: Cineo-Android
           path: artifacts/Cineo-Android.apk
+          retention-days: 90
 
-      - name: Upload to GitHub Release
+      - name: Publicar no GitHub Release (só em tags v*)
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: artifacts/Cineo-Android.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload APK para gofile.io e imprimir link
+        run: |
+          SERVER=$(curl -s https://api.gofile.io/servers | node -e "process.stdin.resume();let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).data.servers[0].name))")
+          RESULT=$(curl -s -F "file=@artifacts/Cineo-Android.apk" "https://${SERVER}.gofile.io/contents/uploadFile")
+          LINK=$(echo "$RESULT" | node -e "process.stdin.resume();let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).data.downloadPage))")
+          echo ""
+          echo "========================================="
+          echo " APK ANDROID DISPONIVEL PARA DOWNLOAD:"
+          echo " $LINK"
+          echo "========================================="

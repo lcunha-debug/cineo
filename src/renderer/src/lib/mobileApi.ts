@@ -1,6 +1,10 @@
 // Mobile API bridge — replaces window.electron.* in browser/Capacitor context
 import type { AutoCutOptions, DetectedSegment, ExportClipData, ExportOptions } from '../types'
 
+function isAndroidNative(): boolean {
+  return !!(window as any).Capacitor?.isNativePlatform?.()
+}
+
 // File registry: blob URL → File object
 const fileReg = new Map<string, File>()
 
@@ -48,10 +52,47 @@ async function getFFmpeg() {
   const { FFmpeg } = await import('@ffmpeg/ffmpeg')
   const ffmpeg = new FFmpeg()
   ffmpeg.on('progress', ({ progress }: any) => exportCb?.(Math.round(progress * 100)))
-  const BASE = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
-  await ffmpeg.load({ coreURL: `${BASE}/ffmpeg-core.js`, wasmURL: `${BASE}/ffmpeg-core.wasm` })
+  // Serve WASM locally to avoid CDN dependency on Android
+  const base = `${location.origin}/ffmpeg`
+  await ffmpeg.load({ coreURL: `${base}/ffmpeg-core.js`, wasmURL: `${base}/ffmpeg-core.wasm` })
   ffmpegInstance = ffmpeg
   return ffmpeg
+}
+
+async function saveExportedVideo(data: Uint8Array, filename: string) {
+  if (isAndroidNative()) {
+    const { Filesystem, Directory } = await import('@capacitor/filesystem')
+    const { Share } = await import('@capacitor/share')
+
+    // Convert Uint8Array to base64
+    let binary = ''
+    const chunk = 8192
+    for (let i = 0; i < data.length; i += chunk) {
+      binary += String.fromCharCode(...data.subarray(i, i + chunk))
+    }
+    const base64 = btoa(binary)
+
+    const writeResult = await Filesystem.writeFile({
+      path: filename || 'cineo_export.mp4',
+      data: base64,
+      directory: Directory.Cache,
+    })
+
+    await Share.share({
+      title: 'Exportar vídeo',
+      url: writeResult.uri,
+      dialogTitle: 'Salvar ou compartilhar o vídeo exportado',
+    })
+  } else {
+    const blob = new Blob([data], { type: 'video/mp4' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename || 'cineo_export.mp4'
+    document.body.appendChild(a)
+    a.click()
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url) }, 2000)
+  }
 }
 
 const mobileApi: Window['electron'] = {
@@ -152,14 +193,7 @@ const mobileApi: Window['electron'] = {
     exportCb?.(90)
 
     const data = await ffmpeg.readFile('output.mp4') as Uint8Array
-    const blob = new Blob([data], { type: 'video/mp4' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = outputPath || 'cineo_export.mp4'
-    document.body.appendChild(a)
-    a.click()
-    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url) }, 2000)
+    await saveExportedVideo(data, outputPath || 'cineo_export.mp4')
     exportCb?.(100)
   },
 
