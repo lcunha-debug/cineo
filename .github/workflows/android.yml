@@ -43,20 +43,46 @@ jobs:
       - name: Criar local.properties
         run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
-      - name: Build APK (com log)
+      - name: Diagnostico pre-build
+        run: |
+          echo "=== node_modules/@capacitor/android/ ==="
+          ls node_modules/@capacitor/android/ 2>/dev/null | head -20 || echo "NOT FOUND"
+          echo "=== node_modules/@capacitor/android/capacitor/ ==="
+          ls node_modules/@capacitor/android/capacitor/ 2>/dev/null | head -10 || echo "NOT FOUND"
+          echo "=== node_modules/@capacitor/filesystem/android/ ==="
+          ls node_modules/@capacitor/filesystem/android/ 2>/dev/null | head -5 || echo "NOT FOUND"
+          echo "=== AGP version ==="
+          grep "com.android.tools.build:gradle" android/build.gradle
+          echo "=== Gradle wrapper ==="
+          cat android/gradle/wrapper/gradle-wrapper.properties | grep distributionUrl
+          echo "=== ANDROID_HOME ==="
+          echo $ANDROID_HOME
+          ls $ANDROID_HOME/platforms/ 2>/dev/null || echo "No platforms"
+
+      - name: Build APK (captura log)
+        id: gradle_build
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --info 2>&1 | tee /tmp/gradle-build.log
-          exit ${PIPESTATUS[0]}
+          ./gradlew assembleDebug --no-daemon --info > /tmp/gradle.log 2>&1
+          echo "EXIT=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
 
-      - name: Upload log de erro do Gradle
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gradle-log
-          path: /tmp/gradle-build.log
-          retention-days: 7
+      - name: Publicar log de erro no repo
+        if: steps.gradle_build.outcome == 'failure'
+        run: |
+          tail -200 /tmp/gradle.log > gradle-error.log
+          git config user.email "ci@github.com"
+          git config user.name "CI Bot"
+          git add gradle-error.log
+          git commit -m "ci: gradle error log [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Falhar se build falhou
+        if: steps.gradle_build.outcome == 'failure'
+        run: exit 1
 
       - name: Copiar APK
         run: |
