@@ -17,6 +17,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar plugins Capacitor (sem scripts pesados)
+        run: |
+          npm install --ignore-scripts \
+            @capacitor/core@8 \
+            @capacitor/android@8 \
+            @capacitor/filesystem@8 \
+            @capacitor/share@8
+
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
