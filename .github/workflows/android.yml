@@ -37,11 +37,17 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Instalar SDK 35 e Build Tools
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" --sdk_root=$ANDROID_HOME
+
+      - name: Criar local.properties
+        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -150
 
       - name: Copiar APK
         run: |
