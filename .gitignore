@@ -1,6 +1,6 @@
 node_modules/
 dist/
-dist-mobile/
+# dist-mobile rastreado para CI Android (não precisa buildar Vite no CI)
 dist-pkg/
 out/
 .DS_Store
