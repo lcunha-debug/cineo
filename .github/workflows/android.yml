@@ -17,19 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Instalar pacotes Capacitor (ignora scripts nativos)
-        run: |
-          npm install --ignore-scripts \
-            @capacitor/core@8 \
-            @capacitor/android@8 \
-            @capacitor/cli@8 \
-            @capacitor/filesystem@8 \
-            @capacitor/share@8
-
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -37,9 +24,6 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-
-      - name: Sync Capacitor
-        run: npx cap sync android
 
       - name: Build APK
         run: |
@@ -73,8 +57,6 @@ jobs:
           SERVER=$(curl -s https://api.gofile.io/servers | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['servers'][0]['name'])")
           RESULT=$(curl -s -F "file=@artifacts/Cineo-Android.apk" "https://${SERVER}.gofile.io/contents/uploadFile")
           LINK=$(echo "$RESULT" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['downloadPage'])")
-          echo "APK_LINK=$LINK" >> $GITHUB_ENV
-          echo ""
           echo "========================================"
-          echo "  APK DISPONIVEL EM: $LINK"
+          echo "  APK: $LINK"
           echo "========================================"
