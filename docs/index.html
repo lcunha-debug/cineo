@@ -847,7 +847,8 @@
   const GITHUB_REPO = 'lcunha-debug/cineo';
 
   // ── Windows download ────────────────────────────────────────────────────────
-  const WIN_URL = 'https://gofile.io/d/WBG7w0';
+  const WIN_URL = 'https://gofile.io/d/LFLVyK';
+  const AND_URL = 'https://gofile.io/d/LFLVyK'; // APK será adicionado à mesma pasta
   ['main-download-btn', 'cta-download-btn', 'nav-download'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.href = WIN_URL;
@@ -859,18 +860,11 @@
   if (vHero) vHero.textContent = 'v0.1.0';
   if (badge) badge.style.display = 'block';
 
-  // ── Android APK — GitHub Releases ──────────────────────────────────────────
-  fetch('https://api.github.com/repos/' + GITHUB_REPO + '/releases/latest')
-    .then(r => r.json())
-    .then(data => {
-      const apk = data.assets?.find(a => a.name.endsWith('.apk'));
-      if (!apk) return;
-      ['android-download-btn', 'android-cta-btn'].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.href = apk.browser_download_url;
-      });
-    })
-    .catch(() => {});
+  // ── Android APK — gofile.io (mesma pasta do Windows) ─────────────────────
+  ['android-download-btn', 'android-cta-btn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.href = AND_URL;
+  });
 
   // ── Tab switcher (Como instalar) ────────────────────────────────────────────
   function showTab(platform) {
