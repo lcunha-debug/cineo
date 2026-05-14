@@ -84,7 +84,7 @@ async function saveExportedVideo(data: Uint8Array, filename: string) {
       dialogTitle: 'Salvar ou compartilhar o vídeo exportado',
     })
   } else {
-    const blob = new Blob([data], { type: 'video/mp4' })
+    const blob = new Blob([data.buffer as ArrayBuffer], { type: 'video/mp4' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
