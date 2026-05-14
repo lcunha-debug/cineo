@@ -72,11 +72,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload APK para gofile.io
+      - name: Upload APK para gofile.io (pasta LFLVyK)
         run: |
           SERVER=$(curl -s https://api.gofile.io/servers | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['servers'][0]['name'])")
-          RESULT=$(curl -s -F "file=@artifacts/Cineo-Android.apk" "https://${SERVER}.gofile.io/contents/uploadFile")
-          LINK=$(echo "$RESULT" | python3 -c "import sys,json; print(json.load(sys.stdin)['data']['downloadPage'])")
+          RESULT=$(curl -s \
+            -F "file=@artifacts/Cineo-Android.apk" \
+            -F "token=y00naPMpmCJbgbDvaXJ8PR9FktVUtCWw" \
+            -F "folderId=fa0872e3-4045-45f9-8932-46d9962acd2a" \
+            "https://${SERVER}.gofile.io/contents/uploadFile")
+          echo "Gofile result: $RESULT"
+          FILE_ID=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['data']['id'])" 2>/dev/null || echo "unknown")
+          echo "File ID: $FILE_ID"
+          LINK="https://gofile.io/d/LFLVyK"
+          echo "APK disponível em: $LINK"
           echo "========================================"
           echo "  APK: $LINK"
           echo "========================================"
+          # Gravar o file ID no repo para leitura externa
+          echo "$FILE_ID" > gofile-apk-id.txt
+          git config user.email "ci@github.com"
+          git config user.name "CI Bot"
+          git add gofile-apk-id.txt
+          git commit -m "ci: gofile APK file ID atualizado [skip ci]" || true
+          git push || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
