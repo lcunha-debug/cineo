@@ -1,189 +1,188 @@
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/05b76176ad07c2d68aaa044e8039a71d/transformed/analysis/instrumentation-dependencies.bin because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar because:
+Caching disabled for ExtractAarTransform: /home/runner/.gradle/caches/modules-2/files-2.1/androidx.versionedparcelable/versionedparcelable/1.1.1/18e18071e7715679e0593c570217edeb5ca48b9e/versionedparcelable-1.1.1.aar because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/81241ff7078ef14f42ea2a8995fa09c096256e6b/javawriter-2.5.0.jar because:
+Caching disabled for AarTransform: /home/runner/.gradle/caches/8.14.3/transforms/65745fa6fd176513ed319a83b9904c6a/transformed/versionedparcelable-1.1.1 because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/c5d4cd91a875c320158c25ce24adc9e7/transformed/merge/instrumentation-dependencies.bin because:
+Caching disabled for AarTransform: /home/runner/.gradle/caches/8.14.3/transforms/632d3556d00dc913be13d1217a812d57/transformed/annotation-experimental-1.4.1 because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.11/3acb4705652e16236558f0f4f2192cc33c3bd189/commons-codec-1.11.jar because:
+Downloading https://dl.google.com/dl/android/maven2/androidx/arch/core/core-runtime/2.2.0/core-runtime-2.2.0.aar to /home/runner/.gradle/.tmp/gradle_download1981511452484322156bin
+Caching disabled for ExtractAarTransform: /home/runner/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.2.0/39705982680d78556b679ef9d5400d4f17509b0b/core-runtime-2.2.0.aar because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4295a28790eaab385402489ddc1da265/transformed/analysis/instrumentation-hierarchy.bin because:
+Caching disabled for AarTransform: /home/runner/.gradle/caches/8.14.3/transforms/6a5136d2779a33672a68dcfc11dd750b/transformed/core-runtime-2.2.0 because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar because:
+Downloading https://dl.google.com/dl/android/maven2/androidx/core/core-viewtree/1.0.0/core-viewtree-1.0.0.aar to /home/runner/.gradle/.tmp/gradle_download14534026868914685419bin
+Caching disabled for ExtractAarTransform: /home/runner/.gradle/caches/modules-2/files-2.1/androidx.core/core-viewtree/1.0.0/449ba4f495b4d10d18edd01f32f9328be40d5749/core-viewtree-1.0.0.aar because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4295a28790eaab385402489ddc1da265/transformed/analysis/instrumentation-dependencies.bin because:
+Caching disabled for AarTransform: /home/runner/.gradle/caches/8.14.3/transforms/9c2145ab2dfe570851bfcc2a8262b894/transformed/core-viewtree-1.0.0 because:
   Build cache is disabled
   Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4d7ea745a0cc7a67918c3a72b18b706c/transformed/analysis/instrumentation-hierarchy.bin because:
+file or directory '/home/runner/work/cineo/cineo/android/app/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/filesystem/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/share/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/app/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/filesystem/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/share/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/app/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/filesystem/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/share/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:checkDebugAarMetadata' because:
   Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/fb4afffa2848687777763c056b667ac8/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4d7ea745a0cc7a67918c3a72b18b706c/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/d7b430c3622b1c475bfef8ec1315bc39/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.6.0/330f2244e9030119ab3030fc3fededc86713d9cc/jna-5.6.0.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/fb4afffa2848687777763c056b667ac8/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-socks/4.1.93.Final/81ca78969afc60073e47c3b7b361cc3839392c73/netty-codec-socks-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/b02b60b068b49eb99e3a59451f87739a/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/6db582e8fab9b6c778d50278561b8cfb/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/b76878a0517749beced660bfc247b313/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/b76878a0517749beced660bfc247b313/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.93.Final/503badb458b6586632be8d1f81aa4e5ab99a80fc/netty-codec-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-socks/4.1.93.Final/81ca78969afc60073e47c3b7b361cc3839392c73/netty-codec-socks-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/8.7.3/f005788487574c7d6ba23dea63bf8cb3a4f164a6/apksig-8.7.3.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/2b9e05f23593be9637695ac0a73e901a/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/319f1d4e8d890df4fd3770262db60d3d/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4c6af1475e083e67c5ecec6f552913de/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.6.0/330f2244e9030119ab3030fc3fededc86713d9cc/jna-5.6.0.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/319f1d4e8d890df4fd3770262db60d3d/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/cc8bfbee5d05f1ce736a96ce607cd10b/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/4c6af1475e083e67c5ecec6f552913de/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.93.Final/1a0894915c8027ce83b4d6a811c4e765955efd15/netty-transport-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.93.Final/87fac21f4ef95157866b07b48e3c707a2f13c581/netty-buffer-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/74ecaa2700ffaa34e69d00966b8d56b2/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/cc8bfbee5d05f1ce736a96ce607cd10b/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/f371834847fe9804083e1e2c3ae739f7/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.93.Final/3860e99075f9e078364ed38f6d6fc8825b7a168a/netty-resolver-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/0caa4ed80b039d47b72cacdfd0ff7b9d/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.93.Final/3860e99075f9e078364ed38f6d6fc8825b7a168a/netty-resolver-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/0e32c1ed776437a82515821c08102d25/transformed/analysis/instrumentation-hierarchy.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.93.Final/503badb458b6586632be8d1f81aa4e5ab99a80fc/netty-codec-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/8.14.3/transforms/0e32c1ed776437a82515821c08102d25/transformed/analysis/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for MergeInstrumentationAnalysisTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.93.Final/1cfc49b91b0d3ddb30c9f7d8467e5d02ae8babdf/netty-common-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/8.14.3/transforms/c8383974c5be55d81ef1cba1360ab06e/transformed/merge/instrumentation-dependencies.bin because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.93.Final/1a0894915c8027ce83b4d6a811c4e765955efd15/netty-transport-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.93.Final/87fac21f4ef95157866b07b48e3c707a2f13c581/netty-buffer-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for ExternalDependencyInstrumentingArtifactTransform: /home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.93.Final/1cfc49b91b0d3ddb30c9f7d8467e5d02ae8babdf/netty-common-4.1.93.Final.jar because:
-  Build cache is disabled
-  Caching not enabled.
-Caching disabled for Groovy DSL script compilation (proj) because:
-  Build cache is disabled
-  Not worth caching.
-Compiling build file '/home/runner/work/cineo/cineo/android/build.gradle' using BuildScriptTransformer.
-Caching disabled for Groovy DSL script compilation (cp_dsl) because:
-  Build cache is disabled
-  Not worth caching.
-Compiling script '/home/runner/work/cineo/cineo/android/variables.gradle' using SubsetScriptTransformer.
-Caching disabled for Groovy DSL script compilation (dsl) because:
-  Build cache is disabled
-  Not worth caching.
-Compiling script '/home/runner/work/cineo/cineo/android/variables.gradle' using BuildScriptTransformer.
+  Caching has been disabled for the task
+Task ':app:checkDebugAarMetadata' is not up-to-date because:
+  No history is available.
+file or directory '/home/runner/work/cineo/cineo/android/app/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/filesystem/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/share/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/app/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/filesystem/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/share/android/libs', not found
+file or directory '/home/runner/work/cineo/cineo/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/src/main/libs', not found
 
-> Configure project :app
-Evaluating project ':app' using build file '/home/runner/work/cineo/cineo/android/app/build.gradle'.
-Caching disabled for Groovy DSL script compilation (cp_proj) because:
+Resolve mutations for :capacitor-android:generateDebugResValues (Thread[#105,Execution worker Thread 2,5,main]) started.
+:capacitor-android:generateDebugResValues (Thread[#105,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-android:generateDebugResValues
+Caching disabled for task ':capacitor-android:generateDebugResValues' because:
   Build cache is disabled
-  Not worth caching.
-Compiling build file '/home/runner/work/cineo/cineo/android/app/build.gradle' using SubsetScriptTransformer.
-Caching disabled for Groovy DSL script compilation (proj) because:
+Task ':capacitor-android:generateDebugResValues' is not up-to-date because:
+  No history is available.
+Resolve mutations for :capacitor-android:generateDebugResources (Thread[#106,Execution worker Thread 3,5,main]) started.
+:capacitor-android:generateDebugResources (Thread[#106,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-android:generateDebugResources
+Caching disabled for task ':capacitor-android:generateDebugResources' because:
   Build cache is disabled
-  Not worth caching.
-Compiling build file '/home/runner/work/cineo/cineo/android/app/build.gradle' using BuildScriptTransformer.
-Using default execution profile
-Caching disabled for Groovy DSL script compilation (cp_dsl) because:
+Task ':capacitor-android:generateDebugResources' is not up-to-date because:
+  No history is available.
+Resolve mutations for :capacitor-android:packageDebugResources (Thread[#106,Execution worker Thread 3,5,main]) started.
+:capacitor-android:packageDebugResources (Thread[#106,Execution worker Thread 3,5,main]) started.
+
+> Task :app:checkDebugAarMetadata FAILED
+
+> Task :capacitor-android:packageDebugResources
+Caching disabled for task ':capacitor-android:packageDebugResources' because:
   Build cache is disabled
-  Not worth caching.
-Compiling script '/home/runner/work/cineo/cineo/android/app/capacitor.build.gradle' using SubsetScriptTransformer.
-Caching disabled for Groovy DSL script compilation (dsl) because:
-  Build cache is disabled
-  Not worth caching.
-Compiling script '/home/runner/work/cineo/cineo/android/app/capacitor.build.gradle' using BuildScriptTransformer.
-WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+Task ':capacitor-android:packageDebugResources' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':capacitor-android:packageDebugResources'.
+[MergeResources] Inputs are non-incremental full task action.
 
 [Incubating] Problems report is available at: file:///home/runner/work/cineo/cineo/android/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
-* Where:
-Script '/home/runner/work/cineo/cineo/android/app/capacitor.build.gradle' line: 10
-
 * What went wrong:
-A problem occurred evaluating script.
-> Could not read script '/home/runner/work/cineo/cineo/android/capacitor-cordova-android-plugins/cordova.variables.gradle' as it does not exist.
+Execution failed for task ':app:checkDebugAarMetadata'.
+> A failure occurred while executing com.android.build.gradle.internal.tasks.CheckAarMetadataWorkAction
+   > 8 issues were found when checking AAR metadata:
+     
+       1.  Dependency 'androidx.activity:activity-ktx:1.11.0' requires libraries and applications that
+           depend on it to compile against version 36 or later of the
+           Android APIs.
+     
+           :app is currently compiled against android-35.
+     
+           Also, the maximum recommended compile SDK version for Android Gradle
+           plugin 8.7.3 is 35.
+     
+           Recommended action: Update this project's version of the Android Gradle
+           plugin to one that supports 36, then update this project to use
+           compileSdk of at least 36.
+     
+           Note that updating a library or application's compileSdk (which
+           allows newer APIs to be used) can be done separately from updating
+           targetSdk (which opts the app in to new runtime behavior) and
+           minSdk (which determines which devices the app can be installed
+           on).
+     
+       2.  Dependency 'androidx.activity:activity-ktx:1.11.0' requires Android Gradle plugin 8.9.1 or higher.
+     
+           This build currently uses Android Gradle plugin 8.7.3.
+     
+       3.  Dependency 'androidx.activity:activity:1.11.0' requires libraries and applications that
+           depend on it to compile against version 36 or later of the
+           Android APIs.
+     
+           :app is currently compiled against android-35.
+     
+           Also, the maximum recommended compile SDK version for Android Gradle
+           plugin 8.7.3 is 35.
+     
+           Recommended action: Update this project's version of the Android Gradle
+           plugin to one that supports 36, then update this project to use
+           compileSdk of at least 36.
+     
+           Note that updating a library or application's compileSdk (which
+           allows newer APIs to be used) can be done separately from updating
+           targetSdk (which opts the app in to new runtime behavior) and
+           minSdk (which determines which devices the app can be installed
+           on).
+     
+       4.  Dependency 'androidx.activity:activity:1.11.0' requires Android Gradle plugin 8.9.1 or higher.
+     
+           This build currently uses Android Gradle plugin 8.7.3.
+     
+       5.  Dependency 'androidx.core:core-ktx:1.17.0' requires libraries and applications that
+           depend on it to compile against version 36 or later of the
+           Android APIs.
+     
+           :app is currently compiled against android-35.
+     
+           Also, the maximum recommended compile SDK version for Android Gradle
+           plugin 8.7.3 is 35.
+     
+           Recommended action: Update this project's version of the Android Gradle
+           plugin to one that supports 36, then update this project to use
+           compileSdk of at least 36.
+     
+           Note that updating a library or application's compileSdk (which
+           allows newer APIs to be used) can be done separately from updating
+           targetSdk (which opts the app in to new runtime behavior) and
+           minSdk (which determines which devices the app can be installed
+           on).
+     
+       6.  Dependency 'androidx.core:core-ktx:1.17.0' requires Android Gradle plugin 8.9.1 or higher.
+     
+           This build currently uses Android Gradle plugin 8.7.3.
+     
+       7.  Dependency 'androidx.core:core:1.17.0' requires libraries and applications that
+           depend on it to compile against version 36 or later of the
+           Android APIs.
+     
+           :app is currently compiled against android-35.
+     
+           Also, the maximum recommended compile SDK version for Android Gradle
+           plugin 8.7.3 is 35.
+     
+           Recommended action: Update this project's version of the Android Gradle
+           plugin to one that supports 36, then update this project to use
+           compileSdk of at least 36.
+     
+           Note that updating a library or application's compileSdk (which
+           allows newer APIs to be used) can be done separately from updating
+           targetSdk (which opts the app in to new runtime behavior) and
+           minSdk (which determines which devices the app can be installed
+           on).
+     
+       8.  Dependency 'androidx.core:core:1.17.0' requires Android Gradle plugin 8.9.1 or higher.
+     
+           This build currently uses Android Gradle plugin 8.7.3.
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
@@ -197,4 +196,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 30s
+BUILD FAILED in 54s
+10 actionable tasks: 10 executed
